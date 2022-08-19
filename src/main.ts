@@ -17,6 +17,14 @@ async function bootstrap() {
     .setTitle('Hubspot Blip API')
     .setDescription('Intermediate API for integration between Blip and Hobspot')
     .setVersion('1.0')
+    .addApiKey(
+      {
+        type: 'apiKey',
+        name: 'Authorization', // name of the key expected in header
+        in: 'header',
+      },
+      'Authorization',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

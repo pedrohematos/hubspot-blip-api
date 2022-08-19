@@ -1,11 +1,21 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBody,
   ApiOperation,
   ApiParam,
   ApiResponse,
+  ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger';
+import { HeaderApiKeyGuard } from 'src/auth/auth-header-api-key.guard';
 import { ContactsService } from './contacts.service';
 import { CreateContactRequestBodyDTO } from './dtos/requests/create-contact-request-body.dto copy';
 import { GetContactByEmailParam } from './dtos/requests/get-contact-by-email-request-param.dto';
@@ -15,6 +25,8 @@ import { Contact } from './types/contact.type';
 
 @ApiTags('Contacts')
 @Controller('contact')
+@ApiSecurity('Authorization')
+@UseGuards(HeaderApiKeyGuard)
 export class ContactsController {
   constructor(private readonly contactsService: ContactsService) {}
 

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
+import { AuthModule } from './auth/auth.module';
 import { ContactsModule } from './contacts/contacts.module';
 
 @Module({
@@ -16,6 +17,7 @@ import { ContactsModule } from './contacts/contacts.module';
       }),
     }),
 
+    AuthModule,
     ContactsModule,
   ],
 })
