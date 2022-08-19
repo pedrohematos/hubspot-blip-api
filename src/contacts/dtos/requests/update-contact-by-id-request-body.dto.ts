@@ -7,8 +7,8 @@ import {
   IsPhoneNumber,
   IsString,
 } from 'class-validator';
-import { LifeCycleStageENUM } from 'src/enums/life-cycle-stage.enum';
-import { ProjectStatusENUM } from 'src/enums/project-status.enum';
+import { LifeCycleStageENUM } from 'src/contacts/enums/life-cycle-stage.enum';
+import { ProjectStatusENUM } from 'src/contacts/enums/project-status.enum';
 
 export class UpdateContactByIdRequestBodyDTO {
   @IsOptional()

@@ -11,7 +11,7 @@ import { LifeCycleStageENUM } from './enums/life-cycle-stage.enum';
 import { Contact } from './types/contact.type';
 
 @Injectable()
-export class AppService {
+export class ContactsService {
   private hubspotClient: hubspot.Client;
 
   private contactPropertiesToReturnFromApi = [
@@ -26,7 +26,7 @@ export class AppService {
     'blip_source',
   ];
 
-  constructor(private configService: ConfigService) {
+  constructor(private readonly configService: ConfigService) {
     this.hubspotClient = new hubspot.Client({
       accessToken: this.configService.get<string>('HUBSPOT_ACCESS_TOKEN'),
     });

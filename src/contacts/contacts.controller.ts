@@ -6,7 +6,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { AppService } from './app.service';
+import { ContactsService } from './contacts.service';
 import { CreateContactRequestBodyDTO } from './dtos/requests/create-contact-request-body.dto copy';
 import { GetContactByEmailParam } from './dtos/requests/get-contact-by-email-request-param.dto';
 import { UpdateContactByIdRequestBodyDTO } from './dtos/requests/update-contact-by-id-request-body.dto';
@@ -15,8 +15,8 @@ import { Contact } from './types/contact.type';
 
 @ApiTags('Contacts')
 @Controller('contact')
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+export class ContactsController {
+  constructor(private readonly contactsService: ContactsService) {}
 
   @Get(':email')
   @ApiResponse({
@@ -49,7 +49,7 @@ export class AppController {
   async getContactByEmail(
     @Param() { email }: GetContactByEmailParam,
   ): Promise<Contact> {
-    return await this.appService.getContactByEmail(email);
+    return await this.contactsService.getContactByEmail(email);
   }
 
   @Post()
@@ -76,7 +76,7 @@ export class AppController {
     description: 'Create a new contact in Hubspot CRM',
   })
   async createContact(@Body() requestBody: CreateContactRequestBodyDTO) {
-    return await this.appService.createContact(requestBody);
+    return await this.contactsService.createContact(requestBody);
   }
 
   @Patch(':id')
@@ -112,6 +112,6 @@ export class AppController {
     @Param() { id }: UpdateContactByIdParam,
     @Body() requestBody: UpdateContactByIdRequestBodyDTO,
   ): Promise<Contact> {
-    return await this.appService.updateContactById(id, requestBody);
+    return await this.contactsService.updateContactById(id, requestBody);
   }
 }
