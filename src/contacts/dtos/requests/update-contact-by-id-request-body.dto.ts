@@ -4,7 +4,6 @@ import {
   IsEnum,
   IsNotEmpty,
   IsOptional,
-  IsPhoneNumber,
   IsString,
 } from 'class-validator';
 import { LifeCycleStageENUM } from 'src/contacts/enums/life-cycle-stage.enum';
@@ -34,10 +33,10 @@ export class UpdateContactByIdRequestBodyDTO {
   email?: string;
 
   @IsOptional()
-  @IsPhoneNumber('BR')
+  @IsString()
   @ApiProperty({
     required: false,
-    description: 'Contact phone number. Accept only brazilian numbers',
+    description: 'Contact phone number',
   })
   phone?: string;
 
