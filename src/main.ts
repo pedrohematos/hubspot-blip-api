@@ -34,10 +34,10 @@ async function bootstrap() {
     new ValidationPipe({ transform: true, validateCustomDecorators: true }),
   );
 
-  await app.listen(process.env.API_PORT);
+  await app.listen(process.env.PORT);
 
   logger.log(
-    `Application running on port ${process.env.API_PORT} in ${process.env.API_ENV} mode`,
+    `Application running on port ${process.env.PORT} in ${process.env.NODE_ENV} mode`,
   );
 }
 

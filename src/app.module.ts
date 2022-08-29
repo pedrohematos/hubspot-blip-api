@@ -8,10 +8,10 @@ import { ContactsModule } from './contacts/contacts.module';
   imports: [
     ConfigModule.forRoot({
       validationSchema: Joi.object({
-        API_ENV: Joi.string()
+        NODE_ENV: Joi.string()
           .valid('homolog', 'development', 'production')
           .default('development'),
-        API_PORT: Joi.number().default(3000),
+        PORT: Joi.number().default(3000),
         API_KEY: Joi.string().required(),
         HUBSPOT_ACCESS_TOKEN: Joi.string().required(),
       }),
