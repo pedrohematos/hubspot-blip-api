@@ -3,12 +3,10 @@
 /node_modules
 
 # environment
-.env
-.env.hml
-.env.prd
+/*.env
 
 # package-lock
-package-lock.json
+# package-lock.json
 
 # Logs
 logs
