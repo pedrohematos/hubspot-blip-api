@@ -7,6 +7,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CreateContactRequestBodyDTO } from './dtos/requests/create-contact-request-body.dto copy';
 import { UpdateContactByIdRequestBodyDTO } from './dtos/requests/update-contact-by-id-request-body.dto';
+import { UpdateContactByIdResponse } from './dtos/responses/update-contact-by-id-response.dto';
 import { LifeCycleStageENUM } from './enums/life-cycle-stage.enum';
 import { Contact } from './types/contact.type';
 
@@ -24,6 +25,7 @@ export class ContactsService {
     'project_status',
     'blip_identity',
     'blip_source',
+    'blip_ticket_id',
   ];
 
   constructor(private readonly configService: ConfigService) {
@@ -80,6 +82,7 @@ export class ContactsService {
       projectStatus: contactProperties.project_status,
       blipIdentity: contactProperties.blip_identity,
       blipSource: contactProperties.blip_source,
+      blipTicketId: contactProperties.blip_ticket_id,
       createdAt: foundContact.createdAt,
       updatedAt: foundContact.updatedAt,
       isArchived: foundContact.archived,
@@ -129,6 +132,7 @@ export class ContactsService {
         projectStatus: createdContactProperties.project_status,
         blipIdentity: createdContactProperties.blip_identity,
         blipSource: createdContactProperties.blip_source,
+        blipTicketId: createdContactProperties.blip_ticket_id,
         createdAt: apiResponse.createdAt,
         updatedAt: apiResponse.updatedAt,
         isArchived: apiResponse.archived,
@@ -143,7 +147,7 @@ export class ContactsService {
   async updateContactById(
     id: string,
     contact: UpdateContactByIdRequestBodyDTO,
-  ): Promise<Contact> {
+  ): Promise<UpdateContactByIdResponse> {
     if (!this.isClient(contact.lifeCycleStage) && contact.projectStatus) {
       throw new HttpException(
         'Project status can only be assigned to clients',
@@ -162,6 +166,7 @@ export class ContactsService {
         project_status: contact.projectStatus,
         blip_identity: contact.blipIdentity,
         blip_source: contact.blipSource,
+        blip_ticket_id: contact.blipTicketId,
       };
 
       const apiResponse = await this.hubspotClient.crm.contacts.basicApi.update(
@@ -173,7 +178,7 @@ export class ContactsService {
 
       const updatedContactProperties = apiResponse.properties;
 
-      const returnContact: Contact = {
+      const returnContact: UpdateContactByIdResponse = {
         id: apiResponse.id,
         firstName: updatedContactProperties.firstname,
         lastName: updatedContactProperties.lastname,
@@ -181,10 +186,10 @@ export class ContactsService {
         phone: updatedContactProperties.phone,
         company: updatedContactProperties.company,
         lifeCycleStage: updatedContactProperties.lifecyclestage,
-        isClient: this.isClient(updatedContactProperties.lifecyclestage),
         projectStatus: updatedContactProperties.project_status,
         blipIdentity: updatedContactProperties.blip_identity,
         blipSource: updatedContactProperties.blip_source,
+        blipTicketId: updatedContactProperties.blip_ticket_id,
         createdAt: apiResponse.createdAt,
         updatedAt: apiResponse.updatedAt,
         isArchived: apiResponse.archived,

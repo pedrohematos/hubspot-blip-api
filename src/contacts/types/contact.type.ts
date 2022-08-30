@@ -42,6 +42,9 @@ export class Contact {
   @ApiProperty({ description: 'Blip contact source channel' })
   blipSource: string;
 
+  @ApiProperty({ description: 'Blip attendance sequential ticket id' })
+  blipTicketId: string;
+
   @ApiProperty({ description: 'Indicates when the contact was created' })
   createdAt: Date;
 

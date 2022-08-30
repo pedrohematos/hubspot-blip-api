@@ -21,6 +21,7 @@ import { CreateContactRequestBodyDTO } from './dtos/requests/create-contact-requ
 import { GetContactByEmailParam } from './dtos/requests/get-contact-by-email-request-param.dto';
 import { UpdateContactByIdRequestBodyDTO } from './dtos/requests/update-contact-by-id-request-body.dto';
 import { UpdateContactByIdParam } from './dtos/requests/update-contact-by-id-request-param.dto';
+import { UpdateContactByIdResponse } from './dtos/responses/update-contact-by-id-response.dto';
 import { Contact } from './types/contact.type';
 
 @ApiTags('Contacts')
@@ -94,8 +95,9 @@ export class ContactsController {
   @Patch(':id')
   @ApiResponse({
     status: 201,
-    type: Contact,
-    description: 'Default response if the operation was successful',
+    type: UpdateContactByIdResponse,
+    description:
+      'Default response if the operation was successful. It returns the updated properties followed by the id, createdAt, updatedAt and isArchived contact properties',
   })
   @ApiResponse({
     status: 400,
@@ -123,7 +125,7 @@ export class ContactsController {
   async updateContactById(
     @Param() { id }: UpdateContactByIdParam,
     @Body() requestBody: UpdateContactByIdRequestBodyDTO,
-  ): Promise<Contact> {
+  ): Promise<UpdateContactByIdResponse> {
     return await this.contactsService.updateContactById(id, requestBody);
   }
 }
